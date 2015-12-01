@@ -49,9 +49,9 @@ export default (task, option) => {
     option('--hashMap <path>', '编译的 hashmap 输出路径', 'dist/hash-map.json');
     option('--hashPath <on|off>', '编译时是否 hash 路径', 'on');
     option('--webpack <on|off>', '是否开启 webpack', 'on');
-    option('--pac <str>', '是否动设置全局 pac 代理: on 或 off', 'on');
+    option('--pac <str>', '是否动设置全局 pac 代理: on 或 off', 'off');
     option('--liveReload <str>', '是否启动自动刷新页面: on 或 off', 'on');
-    option('--lang <str>', '选择主语言与处理器 babel 或 typescript', 'babel');
+    option('--lang <str>', '选择主语言与处理器 babel 或 typescript', 'typescript');
 
     task('default dev', '启动调试服务器和 API 代理', require('mx-fe-bone-kit/lib/dev'));
 
