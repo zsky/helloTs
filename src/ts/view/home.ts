@@ -11,18 +11,13 @@ const debug = debuger('hello:home');
 
 function ajaxData (cb) {
 
-    let mockData = { name: '抽奖'};
+    let mockData = { name: '抽奖啦'};
 
     setTimeout(() => {
         cb(mockData);
     }, 500)
 
 }
-
-debug('hehe');
-
-debug('Page', Page);
-
 
 class HomePage extends Page {
     id (): string {
@@ -33,12 +28,7 @@ class HomePage extends Page {
     defineActions (): void {
         debug('defineActions');
 
-        let pageId = this.id;
-        try {
-            this.actions['GotoResult'] = Cyra.defineAction(this.id(), 'result');
-        } catch (e) {
-            console.log('error', e);
-        }
+        this.actions['GotoResult'] = Cyra.defineAction(this.id(), 'result', true);
 
     }
 
@@ -57,10 +47,15 @@ class HomePage extends Page {
         }
     }
 
+    shouldReload (currentAction: Action) : boolean {
+
+        debug('shouldReload', currentAction);
+        return false;
+    }
+
     initialize (next): void {
         debug('initialize', this.models.actions);
 
-        let a = {m: 1};
         ajaxData((data) => {
             next(data);
         })
@@ -73,6 +68,7 @@ class HomePage extends Page {
         let btn = document.querySelector('.btn');
 
         btn.addEventListener("click", () => {
+            debug('ok');
             this.performAction(this.actions['GotoResult'], { gift: 'ipone' });
         });
         next();

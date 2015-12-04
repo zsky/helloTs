@@ -8,9 +8,6 @@ import { debuger } from '../util/debuger';
 const debug = debuger('hello:result');
 
 
-debug('Page', Page);
-
-
 class ResultPage extends Page {
     id (): string {
         return 'result';
@@ -25,12 +22,14 @@ class ResultPage extends Page {
 
     initialize (next): void {
         debug('initialize', this.models.actions);
-
-        next();
+        setTimeout(()=> {
+            console.log('async executed');
+            next();
+        }, 2500);
     }
 
     willAppear (next): void {
-        debug('willAppear');
+        debug('willAppear', this.context);
 
         let data = {
             name: this.transferData.gift,
@@ -42,7 +41,7 @@ class ResultPage extends Page {
     }
 
     didAppear (next): void {
-        debug('didAppear');
+        debug('didAppear', this.context);
 
         next();
     }
